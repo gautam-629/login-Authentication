@@ -46,8 +46,9 @@ const SigninPage = () => {
       showSuccess("Login successful");
       return;
     },
-    onError: () => {
-      showError("Something went Wrong");
+    onError: (error: any) => {
+      console.log(error);
+      showError("Invalid credentials");
       return;
     },
   });
