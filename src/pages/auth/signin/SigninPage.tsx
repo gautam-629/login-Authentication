@@ -37,22 +37,25 @@ const SigninPage = () => {
       password: "",
     },
   });
+  // Mutation for login
   const { mutate: loginMutate } = useMutation({
     mutationKey: ["login"],
     mutationFn: async (data: ICredentials) =>
       signin(data).then((res) => res?.data),
     onSuccess: async (data) => {
-      setToken(data.token);
+      setToken(data.token); // Set the token dynamically
       showSuccess("Login successful");
       return;
     },
     onError: (error: any) => {
-      console.log(error);
-      showError("Invalid credentials");
+      // Display dynamic error message from the response
+      const errorMessage =
+        error?.response?.data?.message || "An error occurred";
+      showError(errorMessage);
+
       return;
     },
   });
-
   const onSubmit = async (data: LoginFormValues) => {
     loginMutate(data);
   };
